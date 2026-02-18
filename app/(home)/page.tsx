@@ -71,7 +71,7 @@ export default function IndexPage() {
                     <OrbitEffect />
                 </div>
 
-                <div className="mt-10  block" id="skills">
+                <div className="mt-10  flex justify-center " id="skills">
                     <MobileSkills />
                 </div>
             </div>

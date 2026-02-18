@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 const MobileSkills = () => {
     return (
-        <StyledWrapper className="flex md:flex-row flex-col gap-6 items-center py-10 ">
+        <StyledWrapper className="flex  md:flex-row flex-col gap-6 items-center py-10 ">
             {carItem.map((item, indx) => (
                 <div className="outer -z-10" key={indx}>
                     <div className="dot" />
