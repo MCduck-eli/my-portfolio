@@ -23,7 +23,7 @@ const MobileSkills = () => {
 
 const StyledWrapper = styled.div`
     .outer {
-        width: 400px;
+        width: 350px;
         height: 280px; /* Matn sig'ishi uchun balandlik oshirildi */
         border-radius: 10px;
         padding: 1px;

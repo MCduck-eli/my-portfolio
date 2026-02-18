@@ -3,7 +3,7 @@ import Image from "next/image";
 export default function OrbitEffect() {
     return (
         <>
-            <div className="relative flex items-center justify-center h-125 md:w-125 w-82 animate-slide-in-up -z-10">
+            <div className="relative flex items-center justify-center h-125 md:w-125  animate-slide-in-up -z-10">
                 <div className="relative md:w-70 w-60 md:h-70 h-60 flex items-center justify-center z-20">
                     <div className="absolute rounded-full bg-transparent shadow-[0_0_1000px_120px_rgba(57,255,20,0.3)]"></div>
                     <div className="relative w-full h-full rounded-full overflow-hidden border border-green-500">

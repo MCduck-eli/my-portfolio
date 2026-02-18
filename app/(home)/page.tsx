@@ -28,23 +28,25 @@ export default function IndexPage() {
 
     return (
         <>
-            <div className="w-full md:py-17 py-15 md:px-25 px-20 scroll-auto">
+            <div className="w-full md:py-17 py-15 md:px-25 px-5 overflow-x-hidden">
                 <div className="flex md:justify-between justify-center md:flex-row flex-col">
                     <div className="flex flex-col">
-                        <p className="flex flex-col  md:text-4xl text-2xl font-semibold bg-neon-gradient bg-clip-text text-transparent mb-5">
+                        <p className="flex flex-col md:text-4xl text-2xl font-semibold bg-neon-gradient bg-clip-text text-transparent mb-5">
                             <span>Hi!</span>
                             <span className="font-bold md:text-6xl text-4xl">
                                 I'm Eldor Khalikov
                             </span>
-                            <span className="mt-8 md:w-150 w-full">
+
+                            <span className="mt-8 md:max-w-150 max-w-full leading-relaxed text-wrap">
                                 {line1}
                             </span>
                         </p>
-                        <div className="relative h-25 overflow-hidden -z-50">
+
+                        <div className="relative h-20 md:h-25 overflow-hidden">
                             {textOptions.map((text, index) => (
                                 <h1
                                     key={text}
-                                    className={`absolute inset-0 bg-neon-gradient bg-clip-text text-transparent font-bold text-6xl mb-10 transition-all duration-500 ease-in-out
+                                    className={`absolute inset-0 bg-neon-gradient bg-clip-text text-transparent font-bold md:text-6xl text-4xl mb-10 transition-all duration-500 ease-in-out
                         ${
                             index === currentIndex
                                 ? "opacity-100 translate-y-0"
@@ -55,7 +57,7 @@ export default function IndexPage() {
                                 </h1>
                             ))}
                         </div>
-                        <h1 className="bg-neon-gradient bg-clip-text text-transparent font-bold text-6xl">
+                        <h1 className="bg-neon-gradient bg-clip-text text-transparent font-bold md:text-6xl text-4xl">
                             Developer
                         </h1>
                         <div className="mt-10 w-50 md:block hidden">
@@ -68,10 +70,12 @@ export default function IndexPage() {
                         </div>
                     </div>
 
-                    <OrbitEffect />
+                    <div className="md:block mt-10 md:mt-0 flex justify-center overflow-visible">
+                        <OrbitEffect />
+                    </div>
                 </div>
 
-                <div className="mt-10  flex justify-center " id="skills">
+                <div className="mt-10 flex justify-center" id="skills">
                     <MobileSkills />
                 </div>
             </div>
