@@ -1,7 +1,9 @@
 import axios from "axios";
 import { IBlogTypes } from "@/types/blog-types";
 
-const BASE_URL = `${process.env.NEXT_PUBLIC_API_URL}/blog`;
+const BASE_URL = process.env.NEXT_PUBLIC_API_URL
+    ? `${process.env.NEXT_PUBLIC_API_URL}/blog`
+    : "https://my-portfolio-ha9d.onrender.com/api/blog";
 
 class BlogServiceClass {
     async getAllBlog(): Promise<IBlogTypes[]> {
