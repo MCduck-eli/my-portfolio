@@ -8,6 +8,13 @@ class BlogServiceClass {
         try {
             const { data } = await axios.get<IBlogTypes[]>(
                 `${BASE_URL}?t=${new Date().getTime()}`,
+                {
+                    headers: {
+                        "Cache-Control": "no-cache",
+                        Pragma: "no-cache",
+                        Expires: "0",
+                    },
+                },
             );
             return data;
         } catch (error) {

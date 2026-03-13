@@ -2,6 +2,9 @@ import BlogService from "@/service/blog-service";
 import ProjectCard from "./components/card";
 import { IBlogTypes } from "@/types/blog-types";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 const CardPage = async () => {
     const blog = await BlogService.getAllBlog();
     return (
