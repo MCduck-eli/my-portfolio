@@ -31,7 +31,10 @@ class BlogServiceClass {
 
         if (blogData.imageFile) {
             formData.append("image", blogData.imageFile);
+        } else if (blogData.image) {
+            formData.append("image", blogData.image); // URL bo'lsa
         }
+
         const { data } = await axios.post(BASE_URL, formData, {
             headers: {
                 "Content-Type": "multipart/form-data",
@@ -40,10 +43,27 @@ class BlogServiceClass {
         return data;
     }
 
-    async update(id: string, dto: Partial<IBlogTypes>): Promise<IBlogTypes> {
+    async update(id: string, blogData: any): Promise<IBlogTypes> {
+        const formData = new FormData();
+        if (blogData.title) formData.append("title", blogData.title);
+        if (blogData.description)
+            formData.append("description", blogData.description);
+        if (blogData.link) formData.append("link", blogData.link);
+
+        if (blogData.imageFile) {
+            formData.append("image", blogData.imageFile);
+        } else if (blogData.image) {
+            formData.append("image", blogData.image);
+        }
+
         const { data } = await axios.patch<IBlogTypes>(
             `${BASE_URL}/${id}`,
-            dto,
+            formData,
+            {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                },
+            },
         );
         return data;
     }

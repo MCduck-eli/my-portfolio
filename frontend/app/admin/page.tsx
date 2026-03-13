@@ -23,7 +23,8 @@ export default function AdminPanel() {
     const fetchBlogs = async () => {
         try {
             const data = await BlogService.getAllBlog();
-            setBlogs(data);
+            console.log("Bazadan kelgan bloglar soni:", data.length);
+            setBlogs([...data]);
         } catch (error) {
             console.error("Bloglarni yuklashda xato:", error);
         }
@@ -35,7 +36,7 @@ export default function AdminPanel() {
         try {
             await BlogService.delete(id);
             alert("Muvaffaqiyatli o'chirildi!");
-            fetchBlogs();
+            setTimeout(() => fetchBlogs(), 500);
         } catch (error) {
             console.error("O'chirishda xatolik:", error);
             alert("O'chirishda xatolik yuz berdi");
