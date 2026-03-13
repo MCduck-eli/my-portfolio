@@ -11,7 +11,7 @@ export default function Navbar() {
     return (
         <div
             className={cn(
-                "w-full sticky top-0 bg-black",
+                "w-full sticky top-0 bg-black z-100",
                 scrolled && "border-b border-neutral-600/40",
             )}
         >

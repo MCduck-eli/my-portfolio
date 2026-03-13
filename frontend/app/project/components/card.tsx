@@ -13,7 +13,7 @@ export default function ProjectCard({ item }: CardProps) {
     return (
         <StyledWrapper>
             <Link href={item.link} className="cursor-pointer" target="_blank">
-                <div className="card">
+                <div className="card ">
                     <div className="card-bg">
                         {item.image && (
                             <Image
@@ -91,6 +91,9 @@ export default function ProjectCard({ item }: CardProps) {
 }
 
 const StyledWrapper = styled.div`
+    position: relative;
+    z-index: 10;
+
     .card {
         position: relative;
         width: 300px;
@@ -136,7 +139,7 @@ const StyledWrapper = styled.div`
         left: 10px;
         right: 10px;
         bottom: 10px;
-        z-index: 3;
+        z-index: 1;
         overflow: hidden;
         opacity: 0.4;
         transition: 0.5s ease-in-out;
@@ -144,11 +147,11 @@ const StyledWrapper = styled.div`
 
     .card:hover .card-bg {
         opacity: 1;
+        z-index: 3;
         transform: translateY(-85px) scale(0.6);
         border-radius: 15px;
         border: 1px solid rgba(255, 255, 255, 0.2);
     }
-
     .card .content {
         position: absolute;
         z-index: 4;
@@ -162,7 +165,6 @@ const StyledWrapper = styled.div`
         padding: 15px;
         max-height: 160px;
     }
-
     .card:hover .content {
         transform: scale(1);
         bottom: 15px;
