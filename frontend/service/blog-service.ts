@@ -8,17 +8,19 @@ const BASE_URL = process.env.NEXT_PUBLIC_API_URL
 class BlogServiceClass {
     async getAllBlog(): Promise<IBlogTypes[]> {
         try {
-            const { data } = await axios.get<IBlogTypes[]>(
+            const response = await axios.get(
                 `${BASE_URL}?t=${new Date().getTime()}`,
                 {
                     headers: {
                         "Cache-Control": "no-cache",
-                        Pragma: "no-cache",
-                        Expires: "0",
                     },
                 },
             );
-            return data;
+            // Ma'lumot strukturasini tekshirish
+            if (Array.isArray(response.data)) return response.data;
+            if (response.data && Array.isArray(response.data.data))
+                return response.data.data;
+            return [];
         } catch (error) {
             console.error("Error fetching blogs:", error);
             return [];
@@ -34,13 +36,11 @@ class BlogServiceClass {
         if (blogData.imageFile) {
             formData.append("image", blogData.imageFile);
         } else if (blogData.image) {
-            formData.append("image", blogData.image); // URL bo'lsa
+            formData.append("image", blogData.image);
         }
 
         const { data } = await axios.post(BASE_URL, formData, {
-            headers: {
-                "Content-Type": "multipart/form-data",
-            },
+            headers: { "Content-Type": "multipart/form-data" },
         });
         return data;
     }
@@ -62,9 +62,7 @@ class BlogServiceClass {
             `${BASE_URL}/${id}`,
             formData,
             {
-                headers: {
-                    "Content-Type": "multipart/form-data",
-                },
+                headers: { "Content-Type": "multipart/form-data" },
             },
         );
         return data;
