@@ -16,7 +16,6 @@ class BlogServiceClass {
                     },
                 },
             );
-            // Ma'lumot strukturasini tekshirish
             if (Array.isArray(response.data)) return response.data;
             if (response.data && Array.isArray(response.data.data))
                 return response.data.data;

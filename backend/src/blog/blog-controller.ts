@@ -7,14 +7,14 @@ import {
   Param,
   Patch,
   Post,
+  Res,
+  Req,
   UploadedFile,
   UseInterceptors,
 } from '@nestjs/common';
 import { BlogService } from './blog.service';
-import { BlogDto } from './blog-dto';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { diskStorage } from 'multer';
-import { extname } from 'path';
+import { Request, Response } from 'express';
 
 @Controller('blog')
 export class BlogController {
@@ -28,31 +28,34 @@ export class BlogController {
 
   @HttpCode(201)
   @Post()
-  @UseInterceptors(
-    FileInterceptor('image', {
-      storage: diskStorage({
-        destination: './uploads',
-        filename: (req, file, cb) => {
-          const uniqueSuffix =
-            Date.now() + '-' + Math.round(Math.random() * 1e9);
-          cb(
-            null,
-            `${file.fieldname}-${uniqueSuffix}${extname(file.originalname)}`,
-          );
-        },
-      }),
-    }),
-  )
-  createBlog(@UploadedFile() file: Express.Multer.File, @Body() dto: BlogDto) {
-    const imageUrl = file
-      ? `http://localhost:4000/uploads/${file.filename}`
-      : '';
+  @UseInterceptors(FileInterceptor('image'))
+  async createBlog(
+    @UploadedFile() file: Express.Multer.File, 
+    @Body() dto: any, 
+    @Req() req: Request
+  ) {
+    let imageUrl = '';
+    if (file) {
+      const filename = await this.blogService.uploadFile(file);
+      const protocol = req.protocol;
+      const host = req.get('host');
+      imageUrl = `${protocol}://${host}/api/blog/image/${filename}`;
+    }
     return this.blogService.create({ ...dto, image: imageUrl });
+  }
+
+  @Get('image/:filename')
+  async getImage(@Param('filename') filename: string, @Res() res: Response) {
+    const file = await this.blogService.findFileByName(filename);
+    if (!file) return res.status(404).json({ message: 'Rasm topilmadi' });
+
+    const readstream = this.blogService.getFileStream(filename);
+    readstream.pipe(res);
   }
 
   @HttpCode(200)
   @Patch(':id')
-  updateBlog(@Param('id') id: string, @Body() dto: BlogDto) {
+  updateBlog(@Param('id') id: string, @Body() dto: any) {
     return this.blogService.update(id, dto);
   }
 
