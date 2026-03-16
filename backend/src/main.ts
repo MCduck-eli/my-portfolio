@@ -8,14 +8,9 @@ async function bootstrap() {
 
   app.setGlobalPrefix('api');
   app.enableCors({
-    origin: [
-      'http://localhost:3000',
-      'https://my-portfolio-kohl-iota-54.vercel.app',
-      /\.vercel\.app$/,
-    ],
+    origin: true,
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     credentials: true,
-    allowedHeaders: 'Content-Type, Accept, Authorization',
   });
 
   app.useStaticAssets(join(__dirname, '..', 'uploads'), {

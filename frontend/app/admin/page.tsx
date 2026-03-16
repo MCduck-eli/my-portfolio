@@ -148,7 +148,6 @@ export default function AdminPanel() {
                     </div>
                 )}
 
-                {/* MODAL OYNASI */}
                 {isModalOpen && (
                     <div className="fixed inset-0 bg-black/80 flex items-center justify-center p-4 z-50">
                         <form
@@ -160,6 +159,8 @@ export default function AdminPanel() {
                                     ? "Blogni tahrirlash"
                                     : "Yangi blog qo'shish"}
                             </h2>
+
+                            {/* Sarlavha */}
                             <input
                                 className="bg-black border border-gray-700 p-3 rounded-lg outline-none focus:border-green-500 text-white"
                                 type="text"
@@ -173,6 +174,7 @@ export default function AdminPanel() {
                                     })
                                 }
                             />
+
                             <textarea
                                 className="bg-black border border-gray-700 p-3 rounded-lg outline-none focus:border-green-500 text-white"
                                 placeholder="Tavsif"
@@ -186,25 +188,60 @@ export default function AdminPanel() {
                                     })
                                 }
                             />
+
+                            {/* Rasm URL (Agar link orqali bo'lsa) */}
                             <input
-                                className="text-sm text-gray-400"
-                                type="file"
-                                accept="image/*"
+                                className="bg-black border border-gray-700 p-3 rounded-lg outline-none focus:border-green-500 text-white"
+                                type="text"
+                                placeholder="Rasm URL (https://...)"
+                                value={formData.image}
                                 onChange={(e) =>
-                                    setImageFile(e.target.files?.[0] || null)
+                                    setFormData({
+                                        ...formData,
+                                        image: e.target.value,
+                                    })
                                 }
                             />
+                            <input
+                                className="bg-black border border-gray-700 p-3 rounded-lg outline-none focus:border-green-500 text-white"
+                                type="text"
+                                placeholder="Loyiha linki (URL)"
+                                value={formData.link}
+                                onChange={(e) =>
+                                    setFormData({
+                                        ...formData,
+                                        link: e.target.value,
+                                    })
+                                }
+                            />
+
+                            <div className="flex flex-col gap-1">
+                                <label className="text-xs text-gray-500 ml-1">
+                                    Yoki rasm faylini tanlang:
+                                </label>
+                                <input
+                                    className="text-sm text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-green-600 file:text-white hover:file:bg-green-700 cursor-pointer"
+                                    type="file"
+                                    accept="image/*"
+                                    onChange={(e) =>
+                                        setImageFile(
+                                            e.target.files?.[0] || null,
+                                        )
+                                    }
+                                />
+                            </div>
+
                             <div className="flex gap-3 mt-4">
                                 <button
                                     type="submit"
-                                    className="flex-1 bg-green-600 p-3 rounded-lg font-bold"
+                                    className="flex-1 bg-green-600 p-3 rounded-lg font-bold hover:bg-green-700 transition"
                                 >
                                     Saqlash
                                 </button>
                                 <button
                                     type="button"
                                     onClick={closeModal}
-                                    className="flex-1 bg-gray-700 p-3 rounded-lg font-bold"
+                                    className="flex-1 bg-gray-700 p-3 rounded-lg font-bold hover:bg-gray-600 transition"
                                 >
                                     Bekor qilish
                                 </button>
